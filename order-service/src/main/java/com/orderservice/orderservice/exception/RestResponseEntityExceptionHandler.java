@@ -9,7 +9,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponseMessage> handleException(CustomException exception) {
         return new ResponseEntity<>(new ErrorResponseMessage().builder()

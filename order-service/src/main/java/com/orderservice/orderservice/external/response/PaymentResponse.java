@@ -1,5 +1,6 @@
-package com.paymentservice.paymentservice.model;
+package com.orderservice.orderservice.external.response;
 
+import com.orderservice.orderservice.external.request.PaymentMethod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +12,8 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentRequest {
-    private Long orderId;
+public class PaymentResponse {
     private PaymentMethod paymentMethod;
-    private String referenceNumber;
     private Instant paymentDate;
     private String paymentStatus;
     private Double amount;

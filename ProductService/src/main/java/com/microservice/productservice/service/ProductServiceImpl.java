@@ -38,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
         );
         ProductResponse productResponse = new ProductResponse();
         BeanUtils.copyProperties(product, productResponse);
+        log.info("Product is found: {}", product);
         return productResponse;
     }
 

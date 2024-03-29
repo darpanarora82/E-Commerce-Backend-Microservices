@@ -1,5 +1,6 @@
 package com.paymentservice.paymentservice.entity;
 
+import com.paymentservice.paymentservice.model.PaymentMethod;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,8 @@ public class TransactionDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long orderId;
-    private String paymentMode;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMode;
     private String referenceNumber;
     private Instant paymentDate;
     private String paymentStatus;

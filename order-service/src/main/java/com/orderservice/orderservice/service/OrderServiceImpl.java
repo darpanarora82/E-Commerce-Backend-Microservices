@@ -11,6 +11,7 @@ import com.orderservice.orderservice.repository.OrderRepo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 
@@ -25,6 +26,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public long placeOrder(OrderRequest orderRequest) {
@@ -70,11 +74,23 @@ public class OrderServiceImpl implements OrderService {
                 "PRODUCT_NOT_FOUND", 404));
         log.info("Product is found with id: " + id);
 
+
+        log.info("Invoking product service to get product details for product id: {}", order.getProductId());
+        OrderResponse.ProductDetails productResponse = restTemplate.getForObject(
+                "http://PRODUCT-SERVICE/products/" + order.getProductId(), OrderResponse.ProductDetails.class);
+
+
+        log.info("Invoking payment service to get payment details for product id: {}", order.getProductId());
+        OrderResponse.PaymentDetails paymentDetails = restTemplate.getForObject(
+                "http://PAYMENT-SERVICE/payments/" + order.getId(), OrderResponse.PaymentDetails.class);
+
         return OrderResponse.builder()
                 .orderStatus(order.getOrderStatus())
                 .amount(order.getAmount())
                 .orderDate(order.getOrderDate())
                 .orderId(order.getId())
+                .productDetails(productResponse)
+                .paymentDetails(paymentDetails)
                 .build();
     }
 }
