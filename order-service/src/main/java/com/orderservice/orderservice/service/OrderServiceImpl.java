@@ -45,22 +45,24 @@ public class OrderServiceImpl implements OrderService {
                 .orderStatus("CREATED")
                 .build();
         Order savedOrder = orderRepo.save(order);
-        log.info("Order is placed with Order ID: {}", savedOrder.getId());
-        log.info("Payment is now getting processed");
 
+        log.info("Order is placed with Order ID: {}", savedOrder.getId());
+
+        log.info("Payment is now getting processed");
         PaymentRequest paymentRequest = PaymentRequest.builder()
                 .orderId(savedOrder.getId())
                 .amount(savedOrder.getAmount())
                 .paymentDate(Instant.now())
                 .paymentMethod(orderRequest.getPaymentMethod())
                 .build();
+
         String orderStatus = null;
         try {
             paymentService.doPayment(paymentRequest);
             log.info("Payment success. Order Placed");
             orderStatus = "ORDER_PLACED";
         } catch (Exception e) {
-            log.info("Payment Failed. Order Cancelled");
+            log.error("Payment Failed. Order Cancelled");
             orderStatus = "FAILED";
         }
         savedOrder.setOrderStatus(orderStatus);

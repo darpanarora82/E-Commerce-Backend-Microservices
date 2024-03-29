@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:product
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  application:
+    name: ORDER-SERVICE
+  config:
+    import: optional:configserver:http://localhost:9296
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-63084272.okta.com/oauth2/default
+      client:
+        registration:
+          internal-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oag3627g9OEEyGw85d7
+            client-secret: 0RjfFLvMfTMkNkK2iMgMdeyyAIVvF1HxrFZumFaJhr2gStU892WI_BmPmVSVqVk1
+        provider:
+          okta:
+            issuer-uri: https://dev-63084272.okta.com/oauth2/default
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+eureka:
+  client:
+    enabled: false

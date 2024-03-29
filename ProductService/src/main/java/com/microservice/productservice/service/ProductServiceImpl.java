@@ -55,4 +55,5 @@ public class ProductServiceImpl implements ProductService {
         Product savedProduct = productRepo.save(product);
         log.info("product is saved with id: {}", savedProduct.getProductId());
     }
+
 }

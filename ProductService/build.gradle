@@ -37,6 +37,14 @@ dependencies {
 	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
 	implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
 
+
+	// https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock
+	testImplementation group: 'com.github.tomakehurst', name: 'wiremock', version: '3.0.1', ext: 'pom'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-test
+	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '6.2.3'
+	// https://mvnrepository.com/artifact/com.h2database/h2
+	testImplementation group: 'com.h2database', name: 'h2', version: '2.2.224'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
